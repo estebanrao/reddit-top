@@ -1,26 +1,59 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-function App() {
+import { selectConfigIsDarkModeActive } from './redux/config/config.selectors';
+
+import {
+  unstable_createMuiStrictModeTheme as createMuiTheme,
+  ThemeProvider,
+} from '@material-ui/core/styles';
+
+import TopBar from './components/top-bar/top-bar.component';
+import PostsList from './components/posts-list/posts-list.component';
+import PostDetails from './components/post-details/post-details.component';
+
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+  drawerPaper: {
+    width: '100vw',
+    [theme.breakpoints.up('md')]: {
+      width: '50vw',
+    },
+  },
+}));
+
+function App({ isDarkModeActive }) {
+  const classes = useStyles();
+
+  const palletType = isDarkModeActive ? 'dark' : 'light';
+  const darkTheme = createMuiTheme({
+    palette: {
+      type: palletType,
+    },
+  });
+
+  console.log('Render: App');
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={darkTheme}>
+      <div className={classes.root}>
+        <CssBaseline />
+        <TopBar />
+        <PostsList />
+        <PostDetails />
+      </div>
+    </ThemeProvider>
   );
 }
 
-export default App;
+const mapStateToProps = createStructuredSelector({
+  isDarkModeActive: selectConfigIsDarkModeActive,
+});
+
+export default connect(mapStateToProps)(App);
