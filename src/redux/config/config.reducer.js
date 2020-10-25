@@ -2,9 +2,10 @@ import ConfigActionTypes from './config.types';
 
 const INITIAL_STATE = {
   isDarkModeActive: false,
+  readPosts: [],
 };
 
-const cartReducer = (state = INITIAL_STATE, action) => {
+const configReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ConfigActionTypes.TOGGLE_DARK_MODE:
       return {
@@ -12,9 +13,15 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         isDarkModeActive: !state.isDarkModeActive,
       };
 
+    case ConfigActionTypes.MARK_POST_READ:
+      return {
+        ...state,
+        readPosts: [...state.readPosts, action.payload],
+      };
+
     default:
       return state;
   }
 };
 
-export default cartReducer;
+export default configReducer;

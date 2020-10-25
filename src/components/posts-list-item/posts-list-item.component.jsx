@@ -1,6 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { connect } from 'react-redux';
 
 import ReactTimeAgo from 'react-time-ago';
+
+import { markPostRead } from '../../redux/config/config.actions';
+import {
+  togglePostSelected,
+  dismissPost,
+} from '../../redux/posts/posts.actions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
@@ -21,29 +28,42 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PostsListItem({
+  id,
   thumbnailImgUrl,
   title,
   author,
   commentsCount,
   unread,
   createdAt,
+  selected,
+  permalink,
+  imgUrl,
+  markPostRead,
+  togglePostSelected,
+  dismissPost,
 }) {
   const classes = useStyles();
 
-  const [isSelected, setIsSelected] = useState(false);
-
   const handleListItemClick = () => {
-    setIsSelected(!isSelected);
+    if (unread) markPostRead(id);
+    togglePostSelected({
+      id,
+      title,
+      author,
+      commentsCount,
+      createdAt,
+      permalink,
+      imgUrl,
+    });
+  };
+
+  const handleDismissIconClick = () => {
+    dismissPost(id);
   };
 
   console.log('Render: ListItem');
   return (
-    <ListItem
-      button
-      divider
-      selected={isSelected}
-      onClick={handleListItemClick}
-    >
+    <ListItem button divider selected={selected} onClick={handleListItemClick}>
       <ListItemAvatar>
         <Avatar alt="Profile Picture" src={thumbnailImgUrl} />
       </ListItemAvatar>
@@ -68,12 +88,16 @@ function PostsListItem({
       />
       <ListItemSecondaryAction>
         <Tooltip title="Delete" arrow>
-          <IconButton aria-label="delete">
+          <IconButton aria-label="dismiss" onClick={handleDismissIconClick}>
             <DeleteIcon />
           </IconButton>
         </Tooltip>
         <Tooltip title="Comments" aria-label="ammount of comments" arrow>
-          <IconButton aria-label="open full article">
+          <IconButton
+            target="_blank"
+            href={`https://reddit.com${permalink}`}
+            aria-label="open full article"
+          >
             <Badge badgeContent={commentsCount} color="primary" showZero>
               <CommentIcon />
             </Badge>
@@ -85,4 +109,10 @@ function PostsListItem({
   );
 }
 
-export default PostsListItem;
+const mapDispatchToProps = (dispatch) => ({
+  markPostRead: (postId) => dispatch(markPostRead(postId)),
+  togglePostSelected: (postData) => dispatch(togglePostSelected(postData)),
+  dismissPost: (postId) => dispatch(dismissPost(postId)),
+});
+
+export default connect(null, mapDispatchToProps)(PostsListItem);
