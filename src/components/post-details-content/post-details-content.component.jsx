@@ -12,8 +12,10 @@ import {
 } from '../../redux/config/config.actions';
 
 import CommentsIcon from '../comments-icon/comments-icon.component';
+import DismissIcon from '../dismiss-icon/dismiss-icon.component';
 
 import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
@@ -47,6 +49,8 @@ function PostDetails({
   removeSavedItem,
 }) {
   const classes = useStyles();
+
+  const matches = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
   const handleSaveWallpaper = () => {
     addSavedItem({
@@ -84,7 +88,6 @@ function PostDetails({
           title="Wallpaper image"
         />
         <CardActions disableSpacing>
-          <CommentsIcon permalink={permalink} commentsCount={commentsCount} />
           <Tooltip
             title={
               savedItemsIds.includes(id)
@@ -111,6 +114,15 @@ function PostDetails({
               <ArrowDownwardIcon />
             </IconButton>
           </Tooltip>
+          {matches ? null : (
+            <>
+              <DismissIcon selected={true} itemId={id} />
+              <CommentsIcon
+                permalink={permalink}
+                commentsCount={commentsCount}
+              />
+            </>
+          )}
         </CardActions>
       </Card>
     </Box>

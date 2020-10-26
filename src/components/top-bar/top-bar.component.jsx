@@ -18,6 +18,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MoreIcon from '@material-ui/icons/MoreVert';
 
 const useStyles = makeStyles((theme) => ({
+  appBar: {
+    zIndex: theme.zIndex.drawer + 1,
+  },
   AppBarTitle: {
     flexGrow: 1,
   },
@@ -72,7 +75,7 @@ function TopBar({ isDarkModeActive, toggleDarkMode }) {
 
   console.log('Render: AppBar');
   return (
-    <AppBar position="static">
+    <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>
         <Typography variant="h4" component="h1" className={classes.AppBarTitle}>
           Reddit Top 50
