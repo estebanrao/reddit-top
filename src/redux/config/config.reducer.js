@@ -3,6 +3,7 @@ import ConfigActionTypes from './config.types';
 const INITIAL_STATE = {
   isDarkModeActive: false,
   readPosts: [],
+  savedItems: [],
 };
 
 const configReducer = (state = INITIAL_STATE, action) => {
@@ -17,6 +18,20 @@ const configReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         readPosts: [...state.readPosts, action.payload],
+      };
+
+    case ConfigActionTypes.ADD_SAVED_ITEM:
+      return {
+        ...state,
+        savedItems: [...state.savedItems, action.payload], // Need to check for duplicates
+      };
+
+    case ConfigActionTypes.REMOVE_SAVED_ITEM:
+      return {
+        ...state,
+        savedItems: state.savedItems.filter(
+          (item) => item.id !== action.payload
+        ),
       };
 
     default:

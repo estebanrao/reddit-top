@@ -5,10 +5,13 @@ import { createStructuredSelector } from 'reselect';
 import { selectSelectedPost } from '../../redux/posts/posts.selectors';
 import { togglePostSelected } from '../../redux/posts/posts.actions';
 
+import PostDetailsContent from '../post-details-content/post-details-content.component';
+
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import Box from '@material-ui/core/Box';
 
 const useStyles = makeStyles((theme) => ({
   drawerPaper: {
@@ -22,7 +25,7 @@ const useStyles = makeStyles((theme) => ({
 function PostDetails({ selectedPost, togglePostSelected }) {
   const classes = useStyles();
 
-  const toggleDrawer = () => {
+  const handleDrawerClose = () => {
     togglePostSelected();
   };
 
@@ -30,21 +33,25 @@ function PostDetails({ selectedPost, togglePostSelected }) {
   return (
     <>
       {/* TODO: Add Desktop Version always opened to the right (same Drawer different styles?) */}
-
       <Drawer
         open={Boolean(selectedPost)}
         anchor="right"
-        onClose={toggleDrawer}
+        onClose={handleDrawerClose}
         classes={{
           paper: classes.drawerPaper,
         }}
       >
+        <Box m={2}>
+          <IconButton
+            aria-label="close post details"
+            onClick={handleDrawerClose}
+          >
+            <CloseIcon />
+          </IconButton>
+        </Box>
         {selectedPost ? (
-          <Typography variant="body1" gutterBottom>
-            This is a drawer that shows data for post {selectedPost.id}.
-          </Typography>
+          <PostDetailsContent selectedPost={selectedPost} />
         ) : null}
-        <Button onClick={toggleDrawer}>Close Drawer</Button>
       </Drawer>
     </>
   );

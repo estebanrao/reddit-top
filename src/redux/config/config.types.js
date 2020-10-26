@@ -1,6 +1,8 @@
 const ConfigActionTypes = {
   TOGGLE_DARK_MODE: 'TOGGLE_DARK_MODE',
   MARK_POST_READ: 'MARK_POST_READ',
+  ADD_SAVED_ITEM: 'ADD_SAVED_ITEM',
+  REMOVE_SAVED_ITEM: 'REMOVE_SAVED_ITEM',
 };
 
 export default ConfigActionTypes;

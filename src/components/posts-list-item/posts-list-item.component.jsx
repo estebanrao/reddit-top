@@ -9,13 +9,14 @@ import {
   dismissPost,
 } from '../../redux/posts/posts.actions';
 
+import CommentsIcon from '../comments-icon/comments-icon.component';
+
 import { makeStyles } from '@material-ui/core/styles';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import Avatar from '@material-ui/core/Avatar';
 import Badge from '@material-ui/core/Badge';
-import CommentIcon from '@material-ui/icons/Comment';
 import Tooltip from '@material-ui/core/Tooltip';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
@@ -54,6 +55,7 @@ function PostsListItem({
       createdAt,
       permalink,
       imgUrl,
+      thumbnailImgUrl,
     });
   };
 
@@ -92,17 +94,7 @@ function PostsListItem({
             <DeleteIcon />
           </IconButton>
         </Tooltip>
-        <Tooltip title="Comments" aria-label="ammount of comments" arrow>
-          <IconButton
-            target="_blank"
-            href={`https://reddit.com${permalink}`}
-            aria-label="open full article"
-          >
-            <Badge badgeContent={commentsCount} color="primary" showZero>
-              <CommentIcon />
-            </Badge>
-          </IconButton>
-        </Tooltip>
+        <CommentsIcon permalink={permalink} commentsCount={commentsCount} />
       </ListItemSecondaryAction>
       {/* TODO: Add ListItemSecondaryAction for mobile with Menu */}
     </ListItem>
