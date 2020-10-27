@@ -53,7 +53,7 @@ function TopBar({ isDarkModeActive, toggleDarkMode }) {
   };
 
   const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderSwtch = (
+  const renderSwitch = (
     <FormControlLabel
       control={<Switch checked={isDarkModeActive} onChange={toggleDarkMode} />}
       label="Toggle Light/Dark Mode"
@@ -69,7 +69,7 @@ function TopBar({ isDarkModeActive, toggleDarkMode }) {
       open={isMobileMenuOpen}
       onClose={handleMobileMenuClose}
     >
-      <MenuItem>{renderSwtch}</MenuItem>
+      <MenuItem>{renderSwitch}</MenuItem>
     </Menu>
   );
 
@@ -81,7 +81,7 @@ function TopBar({ isDarkModeActive, toggleDarkMode }) {
           Reddit Top 50
         </Typography>
 
-        <div className={classes.sectionDesktop}>{renderSwtch}</div>
+        <div className={classes.sectionDesktop}>{renderSwitch}</div>
 
         <div className={classes.sectionMobile}>
           <IconButton

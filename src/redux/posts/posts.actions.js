@@ -10,6 +10,20 @@ export const dismissPost = (postId) => ({
   payload: postId,
 });
 
-export const dismissAll = (postId) => ({
+export const dismissAll = () => ({
   type: PostActionTypes.DISMISS_ALL,
+});
+
+export const fetchPostsStart = () => ({
+  type: PostActionTypes.FETCH_POSTS_START,
+});
+
+export const fetchPostsSuccess = (data) => ({
+  type: PostActionTypes.FETCH_POSTS_SUCCESS,
+  payload: data,
+});
+
+export const fetchPostsFailure = (error) => ({
+  type: PostActionTypes.FETCH_POSTS_FAILURE,
+  payload: error,
 });

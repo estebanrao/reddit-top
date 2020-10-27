@@ -74,7 +74,7 @@ function PostDetails({ selectedPost, togglePostSelected }) {
               <span role="img" aria-label="waving hand">
                 👋
               </span>{' '}
-              Hi! Please select a wallpaper from the list.
+              Hi! Please select a post from the list.
             </Typography>
           </Box>
         )}

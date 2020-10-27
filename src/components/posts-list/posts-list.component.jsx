@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -6,14 +6,19 @@ import { AnimatedList } from 'react-animated-list';
 
 import PostsListItem from '../posts-list-item/posts-list-item.component';
 
-import { selectUserPosts } from '../../redux/posts/posts.selectors';
-import { selectSelectedPost } from '../../redux/posts/posts.selectors';
 import {
+  selectUserPosts,
+  selectSelectedPost,
+  selectPostsLoaded,
+} from '../../redux/posts/posts.selectors';
+import {
+  fetchPostsStart,
   togglePostSelected,
   dismissAll,
 } from '../../redux/posts/posts.actions';
 
 import { makeStyles } from '@material-ui/core/styles';
+import Skeleton from '@material-ui/lab/Skeleton';
 import List from '@material-ui/core/List';
 import Button from '@material-ui/core/Button';
 import ListItem from '@material-ui/core/ListItem';
@@ -31,17 +36,39 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function PostsList({
+  fetchPosts,
   userPosts,
   selectedPost,
   dismissAll,
   togglePostSelected,
+  postsLoaded,
 }) {
   const classes = useStyles();
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
 
   const handleDismissAllClick = () => {
     if (selectedPost?.id) togglePostSelected();
     dismissAll();
   };
+
+  if (!postsLoaded) {
+    console.log('Render: Fetching Posts');
+    return (
+      <div className={classes.list}>
+        <Toolbar />
+        <Box m={2}>
+          <Skeleton />
+          <Skeleton animation={false} />
+          <Skeleton animation="wave" />
+        </Box>
+      </div>
+    );
+  }
+
+  // if (isFetchingPostsError) ?
 
   console.log('Render: List');
   return (
@@ -49,38 +76,39 @@ function PostsList({
       <Toolbar />
       <List>
         {/* <AnimatedList animation="collapse"> */}
-        {userPosts.map(
-          ({
-            data: {
-              id,
-              thumbnail,
-              title,
-              author,
-              num_comments,
-              created_utc,
-              unread,
-              permalink,
-              url,
-            },
-          }) => (
-            <PostsListItem
-              key={id}
-              author={author}
-              commentsCount={num_comments}
-              id={id}
-              createdAt={created_utc}
-              thumbnailImgUrl={thumbnail}
-              title={title}
-              unread={unread}
-              selected={id === selectedPost?.id}
-              disabled={id === selectedPost?.id}
-              permalink={permalink}
-              imgUrl={url}
-            />
-          )
-        )}
+        {postsLoaded &&
+          userPosts.map(
+            ({
+              data: {
+                id,
+                thumbnail,
+                title,
+                author,
+                num_comments,
+                created_utc,
+                unread,
+                permalink,
+                url,
+              },
+            }) => (
+              <PostsListItem
+                key={id}
+                author={author}
+                commentsCount={num_comments}
+                id={id}
+                createdAt={created_utc}
+                thumbnailImgUrl={thumbnail}
+                title={title}
+                unread={unread}
+                selected={id === selectedPost?.id}
+                disabled={id === selectedPost?.id}
+                permalink={permalink}
+                imgUrl={url}
+              />
+            )
+          )}
         {/* </AnimatedList> */}
-        {userPosts.length >= 1 ? (
+        {postsLoaded && userPosts.length >= 1 ? (
           <ListItem onClick={handleDismissAllClick}>
             <Button
               color="secondary"
@@ -107,11 +135,13 @@ function PostsList({
 }
 
 const mapStateToProps = createStructuredSelector({
+  postsLoaded: selectPostsLoaded,
   userPosts: selectUserPosts,
   selectedPost: selectSelectedPost,
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  fetchPosts: () => dispatch(fetchPostsStart()),
   dismissAll: () => dispatch(dismissAll()),
   togglePostSelected: () => dispatch(togglePostSelected(null)),
 });

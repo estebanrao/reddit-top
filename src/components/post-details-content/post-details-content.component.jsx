@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     height: 0,
     paddingTop: '56.25%', // 16:9
   },
+  image: {
+    width: '100%',
+  },
 }));
 
 function PostDetails({
@@ -52,7 +55,7 @@ function PostDetails({
 
   const matches = useMediaQuery((theme) => theme.breakpoints.up('md'));
 
-  const handleSaveWallpaper = () => {
+  const handleSaveItem = () => {
     addSavedItem({
       imgUrl,
       thumbnailImgUrl,
@@ -60,7 +63,7 @@ function PostDetails({
     });
   };
 
-  const handleRemoveSavedWallpaper = () => {
+  const handleRemoveSavedItem = () => {
     removeSavedItem(id);
   };
 
@@ -82,12 +85,15 @@ function PostDetails({
             </>
           }
         />
-        <CardMedia
+        {/* <CardMedia
           className={classes.media}
           image={imgUrl}
-          title="Wallpaper image"
-        />
-        <CardActions disableSpacing>
+          title="Post image"
+        /> */}
+        {imgUrl && (
+          <img className={classes.image} src={imgUrl} alt="Post caption" />
+        )}
+        <CardActions>
           <Tooltip
             title={
               savedItemsIds.includes(id)
@@ -100,8 +106,8 @@ function PostDetails({
               aria-label="add or remove favorite"
               onClick={
                 savedItemsIds.includes(id)
-                  ? handleRemoveSavedWallpaper
-                  : handleSaveWallpaper
+                  ? handleRemoveSavedItem
+                  : handleSaveItem
               }
             >
               <FavoriteIcon

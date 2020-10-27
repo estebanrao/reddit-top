@@ -6,7 +6,7 @@ const selectConfig = (state) => state.config;
 export const selectUserPosts = createSelector(
   [selectPostsData, selectConfig],
   (postsData, config) => {
-    return postsData.posts.map((post) => {
+    return postsData.posts?.map((post) => {
       if (config.readPosts.includes(post.data.id)) {
         return {
           ...post,
@@ -21,4 +21,14 @@ export const selectUserPosts = createSelector(
 export const selectSelectedPost = createSelector(
   [selectPostsData],
   (postsData) => postsData.selectedPost
+);
+
+export const selectIsFetchingPosts = createSelector(
+  [selectPostsData],
+  (postsData) => postsData.isFetchingPosts
+);
+
+export const selectPostsLoaded = createSelector(
+  [selectPostsData],
+  (postsData) => !!postsData.posts
 );
