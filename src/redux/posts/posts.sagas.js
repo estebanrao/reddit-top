@@ -8,7 +8,7 @@ import PostActionTypes from './posts.types';
 export function* fetchPosts() {
   try {
     const response = yield call(axios.get, [
-      'https://www.reddit.com/r/memes/top.json?limit=10',
+      'https://www.reddit.com/r/memes/top.json?limit=50',
     ]);
     yield put(fetchPostsSuccess(response.data));
   } catch (error) {

@@ -1,3 +1,19 @@
+# Project Description
+
+This project will get posts from the Reddit API (r/memes/top) and display them on a list. You can click those elements to open the details panel/drawer which will provide a large image preview. You can also dismiss posts (they'll get back on browser reload), mark them as read and save images as favourites (this is persisted in local storage and will be mantained even if you reload the page or close the browser). You can also switch between Light and Dark Mode (also persisted).
+
+- Material UI for UI styling and elements
+- Redux for state management
+- redux-persist to persist config (dark mode, read posts and saved images from posts)
+- redux-saga for async data fetching
+- reselect for Redux state selectors
+
+**Post MVP note: there are several todo items through out the code, the most important ones are to add "Load More" capabilities, animations in the list, a drawer that shows your saved images and unit tests**
+
+Just run `npm install` and `npm start` to check it out in [http://localhost:3000](http://localhost:3000)
+
+# Create React App README
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

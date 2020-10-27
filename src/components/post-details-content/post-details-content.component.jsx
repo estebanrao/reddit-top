@@ -19,7 +19,6 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import Box from '@material-ui/core/Box';
 import Card from '@material-ui/core/Card';
 import CardHeader from '@material-ui/core/CardHeader';
-import CardMedia from '@material-ui/core/CardMedia';
 import CardActions from '@material-ui/core/CardActions';
 import IconButton from '@material-ui/core/IconButton';
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -27,10 +26,6 @@ import ArrowDownwardIcon from '@material-ui/icons/ArrowDownward';
 import Tooltip from '@material-ui/core/Tooltip';
 
 const useStyles = makeStyles((theme) => ({
-  media: {
-    height: 0,
-    paddingTop: '56.25%', // 16:9
-  },
   image: {
     width: '100%',
   },
@@ -85,11 +80,6 @@ function PostDetails({
             </>
           }
         />
-        {/* <CardMedia
-          className={classes.media}
-          image={imgUrl}
-          title="Post image"
-        /> */}
         {imgUrl && (
           <img className={classes.image} src={imgUrl} alt="Post caption" />
         )}

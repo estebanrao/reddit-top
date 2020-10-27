@@ -43,6 +43,7 @@ function PostDetails({ selectedPost, togglePostSelected }) {
   console.log('Render: Drawer');
   return (
     <>
+      {/* TODO: Scroll top when selected post changes */}
       <Drawer // TODO: SwipeableDrawer?
         className={classes.drawer}
         open={Boolean(selectedPost)}

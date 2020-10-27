@@ -1,6 +1,6 @@
 import PostsActionTypes from './posts.types';
 
-import { POSTS_DATA } from './posts-data';
+// import { POSTS_DATA } from './posts-data';
 
 const INITIAL_STATE = {
   posts: null,

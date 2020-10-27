@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-import { AnimatedList } from 'react-animated-list';
+// import { AnimatedList } from 'react-animated-list';
 
 import PostsListItem from '../posts-list-item/posts-list-item.component';
 
@@ -68,14 +68,14 @@ function PostsList({
     );
   }
 
-  // if (isFetchingPostsError) ?
+  // TODO: Add if (isFetchingPostsError) / Error Boundary
 
   console.log('Render: List');
   return (
     <div className={classes.list}>
       <Toolbar />
       <List>
-        {/* <AnimatedList animation="collapse"> */}
+        {/* TODO: <AnimatedList animation="collapse"> */}
         {postsLoaded &&
           userPosts.map(
             ({
