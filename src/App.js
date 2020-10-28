@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function App({ isDarkModeActive }) {
+export const App = ({ isDarkModeActive }) => {
   const classes = useStyles();
 
   const palletType = isDarkModeActive ? 'dark' : 'light';
@@ -50,7 +50,7 @@ function App({ isDarkModeActive }) {
       </div>
     </ThemeProvider>
   );
-}
+};
 
 const mapStateToProps = createStructuredSelector({
   isDarkModeActive: selectConfigIsDarkModeActive,

@@ -8,9 +8,9 @@ This project will get posts from the Reddit API (r/memes/top) and display them o
 - redux-saga for async data fetching
 - reselect for Redux state selectors
 
-**Post MVP note: there are several todo items through out the code, the most important ones are to add "Load More" capabilities, animations in the list, a drawer that shows your saved images and unit tests**
+**Post MVP note: there are several todo items through out the code, the most important ones are to add "Load More" capabilities, animations in the list, a drawer that shows your saved images and unit tests.**
 
-Just run `npm install` and `npm start` to check it out in [http://localhost:3000](http://localhost:3000)
+Just run `npm install` and `npm start` to check it out in [http://localhost:3000](http://localhost:3000). You can also check a working demo in [https://still-beach-06604.herokuapp.com/](https://still-beach-06604.herokuapp.com/).
 
 # Create React App README
 

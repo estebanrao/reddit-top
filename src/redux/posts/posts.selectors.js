@@ -32,3 +32,8 @@ export const selectPostsLoaded = createSelector(
   [selectPostsData],
   (postsData) => !!postsData.posts
 );
+
+export const selectErrorFetchingPosts = createSelector(
+  [selectPostsData],
+  (postsData) => postsData.errorFetchingPosts
+);

@@ -2,14 +2,13 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
-// import { AnimatedList } from 'react-animated-list';
-
 import PostsListItem from '../posts-list-item/posts-list-item.component';
 
 import {
   selectUserPosts,
   selectSelectedPost,
   selectPostsLoaded,
+  selectErrorFetchingPosts,
 } from '../../redux/posts/posts.selectors';
 import {
   fetchPostsStart,
@@ -42,6 +41,7 @@ function PostsList({
   dismissAll,
   togglePostSelected,
   postsLoaded,
+  errorFetchingPosts,
 }) {
   const classes = useStyles();
 
@@ -54,7 +54,7 @@ function PostsList({
     dismissAll();
   };
 
-  if (!postsLoaded) {
+  if (!postsLoaded && !errorFetchingPosts) {
     console.log('Render: Fetching Posts');
     return (
       <div className={classes.list}>
@@ -68,14 +68,33 @@ function PostsList({
     );
   }
 
-  // TODO: Add if (isFetchingPostsError) / Error Boundary
+  if (errorFetchingPosts) {
+    return (
+      <>
+        <Toolbar />
+        <Box m={2}>
+          <Typography variant="h6" component="span" color="secondary">
+            <span role="img" aria-label="crying">
+              😭
+            </span>{' '}
+            Something went wrong fetching your data. Please try again later.
+          </Typography>
+        </Box>
+      </>
+    );
+  }
 
   console.log('Render: List');
   return (
     <div className={classes.list}>
       <Toolbar />
       <List>
-        {/* TODO: <AnimatedList animation="collapse"> */}
+        {/*
+         * TODO: Add animated list. I've tried react-spring,
+         * react-anime (animejs) and react-animated-list but they
+         * all gave me headaches, they mess up refs, or cause
+         * aditional rerenders, or just won't work as expected 🤷‍♂️
+         */}
         {postsLoaded &&
           userPosts.map(
             ({
@@ -107,6 +126,7 @@ function PostsList({
               />
             )
           )}
+
         {/* </AnimatedList> */}
         {postsLoaded && userPosts.length >= 1 ? (
           <ListItem onClick={handleDismissAllClick}>
@@ -136,6 +156,7 @@ function PostsList({
 
 const mapStateToProps = createStructuredSelector({
   postsLoaded: selectPostsLoaded,
+  errorFetchingPosts: selectErrorFetchingPosts,
   userPosts: selectUserPosts,
   selectedPost: selectSelectedPost,
 });

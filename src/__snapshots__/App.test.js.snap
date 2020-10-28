@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should render App component 1`] = `
+"<ThemeProvider theme={{...}}>
+  <div className=\\"makeStyles-root-1\\">
+    <WithStyles(CssBaseline) />
+    <Connect(TopBar) />
+    <Connect(PostsList) />
+    <Connect(PostDetails) />
+  </div>
+</ThemeProvider>"
+`;

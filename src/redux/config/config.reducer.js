@@ -23,7 +23,7 @@ const configReducer = (state = INITIAL_STATE, action) => {
     case ConfigActionTypes.ADD_SAVED_ITEM:
       return {
         ...state,
-        savedItems: [...state.savedItems, action.payload], // Need to check for duplicates
+        savedItems: [...state.savedItems, action.payload], // TODO: Need to check for duplicates (Actually UI prevents this from happening)
       };
 
     case ConfigActionTypes.REMOVE_SAVED_ITEM:
