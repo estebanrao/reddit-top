@@ -39,7 +39,7 @@ export const App = ({ isDarkModeActive }) => {
     },
   });
 
-  console.log('Render: App');
+  // console.log('Render: App');
   return (
     <ThemeProvider theme={darkTheme}>
       <div className={classes.root}>

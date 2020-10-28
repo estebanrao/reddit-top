@@ -62,7 +62,7 @@ function PostDetails({
     removeSavedItem(id);
   };
 
-  console.log('Render: Post Details');
+  // console.log('Render: Post Details');
   return (
     <Box m={2}>
       <Card raised>

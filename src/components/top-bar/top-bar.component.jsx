@@ -73,7 +73,7 @@ function TopBar({ isDarkModeActive, toggleDarkMode }) {
     </Menu>
   );
 
-  console.log('Render: AppBar');
+  // console.log('Render: AppBar');
   return (
     <AppBar position="fixed" className={classes.appBar}>
       <Toolbar>

@@ -40,7 +40,7 @@ function PostDetails({ selectedPost, togglePostSelected }) {
     togglePostSelected();
   };
 
-  console.log('Render: Drawer');
+  // console.log('Render: Drawer');
   return (
     <>
       {/* TODO: Scroll top when selected post changes */}

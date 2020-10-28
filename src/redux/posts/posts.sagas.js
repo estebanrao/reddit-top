@@ -2,7 +2,6 @@ import axios from 'axios';
 import { takeLatest, call, put } from 'redux-saga/effects';
 
 import { fetchPostsSuccess, fetchPostsFailure } from './posts.actions';
-
 import PostActionTypes from './posts.types';
 
 export function* fetchPosts() {

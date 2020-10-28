@@ -2,7 +2,7 @@ import ConfigActionTypes from './config.types';
 
 import configReducer from './config.reducer';
 
-describe('cartReducer', () => {
+describe('configReducer', () => {
   const INITIAL_STATE = {
     isDarkModeActive: false,
     readPosts: [],
@@ -33,6 +33,33 @@ describe('cartReducer', () => {
       isDarkModeActive: false,
       readPosts: ['123'],
       savedItems: [],
+    });
+  });
+
+  it('should handle ADD_SAVED_ITEM', () => {
+    expect(
+      configReducer(INITIAL_STATE, {
+        type: ConfigActionTypes.ADD_SAVED_ITEM,
+        payload: { id: '123' },
+      })
+    ).toEqual({
+      isDarkModeActive: false,
+      readPosts: [],
+      savedItems: [{ id: '123' }],
+    });
+  });
+
+  it('should handle REMOVE_SAVED_ITEM', () => {
+    INITIAL_STATE.savedItems = [{ id: '123' }, { id: '456' }];
+    expect(
+      configReducer(INITIAL_STATE, {
+        type: ConfigActionTypes.REMOVE_SAVED_ITEM,
+        payload: '123',
+      })
+    ).toEqual({
+      isDarkModeActive: false,
+      readPosts: [],
+      savedItems: [{ id: '456' }],
     });
   });
 });

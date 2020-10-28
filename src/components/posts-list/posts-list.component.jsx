@@ -55,7 +55,7 @@ function PostsList({
   };
 
   if (!postsLoaded && !errorFetchingPosts) {
-    console.log('Render: Fetching Posts');
+    // console.log('Render: Fetching Posts');
     return (
       <div className={classes.list}>
         <Toolbar />
@@ -84,7 +84,7 @@ function PostsList({
     );
   }
 
-  console.log('Render: List');
+  // console.log('Render: List');
   return (
     <div className={classes.list}>
       <Toolbar />

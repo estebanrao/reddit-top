@@ -54,7 +54,7 @@ function PostsListItem({
     });
   };
 
-  console.log('Render: ListItem');
+  // console.log('Render: ListItem');
   return (
     <ListItem
       button
