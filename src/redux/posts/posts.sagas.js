@@ -15,6 +15,8 @@ export function* fetchPosts() {
   }
 }
 
+// TODO: Add sagas to load more items using the "after" property from the base response
+
 export function* postsSagas() {
   yield takeLatest(PostActionTypes.FETCH_POSTS_START, fetchPosts);
 }
